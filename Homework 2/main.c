@@ -79,7 +79,7 @@ int main(void)
 	{
 		
 		printf(tokens[i]);
-		printf('%');
+		printf("^");
 		
 	}
 
