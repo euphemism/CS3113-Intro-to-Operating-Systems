@@ -40,6 +40,8 @@ char* read_line(char* buffer, size_t length, FILE* f)
 	 int current_size = 0;
 	 int offset = 0;
 	 
+	 printf("explode received %s", str);
+	 
 	 for (int i = 0; i < max_size; i++)
 	 {
 		 
