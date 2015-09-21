@@ -43,11 +43,12 @@ char* read_line(char* buffer, size_t length, FILE* f)
 	 for (int i = 0; i < max_size; i++)
 	 {
 		 
-		 char* token = (char*) malloc(max_size * sizeof(char));
+		 printf(str[i]));
 		 
 		 if (str[i] == delimiter)
 		 {
 
+			printf("hit delimiter.\n");
 			 current_size++;
 			 array = realloc(array, current_size * sizeof(char*));
 			 array[current_size - 1] = malloc(((i - offset) + 2) * sizeof(char));
