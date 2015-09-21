@@ -51,7 +51,7 @@ int main(void)
 	char *input;
 
 	input = read_line(buffer, BUFFER_SIZE,  stdin);
-	input >> cout;
+	printf(input);
 
 	exit(0);
 }
