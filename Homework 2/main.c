@@ -45,7 +45,7 @@ char* read_line(char* buffer, size_t length, FILE* f)
 	 for (int i = 0; i < max_size; i++)
 	 {
 		 
-		 printf(str[i]);
+		 printf(str);
 		 
 		 if (str[i] == delimiter)
 		 {
