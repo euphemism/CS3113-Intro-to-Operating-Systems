@@ -36,8 +36,11 @@ int main(void)
 	char buffer[BUFFER_SIZE];
 	char *input;
 
-	input = read_line(buffer, BUFFER_SIZE,  stdin);
-	printf(input + '\n');
+	for (int i = 0; i < 10; i++)
+	{
+		input = read_line(buffer, BUFFER_SIZE,  stdin);
+		printf(input);
 
-	exit(0);
+		exit(0);
+	}
 }
