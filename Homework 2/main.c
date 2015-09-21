@@ -30,17 +30,28 @@ char* read_line(char* buffer, size_t length, FILE* f)
 	return line;
 }
 
+char *Readline(char *in) {
+   char *cptr;
+
+   if (cptr = fgets(in, MAX_LINE, stdin)) {
+     /* kill preceding whitespace but leave \n so we're guaranteed to have something */
+     while(*cptr == ' ' || *cptr == '\t') {
+       cptr++;
+     }
+     return cptr;    
+    } else {
+     return 0;
+   }
+ }
+ 
 int main(void)
 {
 
 	char buffer[BUFFER_SIZE];
 	char *input;
-	for (int i = 0; i < 10; i++)
-	{
-		
-		input = read_line(buffer, BUFFER_SIZE,  stdin);
-		printf(input + '\n');
-		fflush(stdout);
-	}
+
+	input = read_line(buffer, BUFFER_SIZE,  stdin);
+	input >> cout;
+
 	exit(0);
 }
