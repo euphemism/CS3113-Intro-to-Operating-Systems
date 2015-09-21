@@ -40,6 +40,7 @@ int main(void)
 		
 		input = read_line(buffer, BUFFER_SIZE,  stdin);
 		printf(input + '\n');
+		fflush(stdout);
 	}
 	exit(0);
 }
