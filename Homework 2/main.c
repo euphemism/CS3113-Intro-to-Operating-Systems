@@ -40,7 +40,7 @@ int main(void)
 	{
 		input = read_line(buffer, BUFFER_SIZE,  stdin);
 		printf(input);
-
-		exit(0);
 	}
+	
+	exit(0);
 }
