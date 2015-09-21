@@ -75,6 +75,7 @@ int main(void)
 	char *input;
 
 	input = read_line(buffer, BUFFER_SIZE,  stdin);
+	printf("Here.");
 	char** tokens = explode(input, ' ');
 	printf(input);
 	
