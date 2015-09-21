@@ -82,9 +82,9 @@ int main(void)
 	for (int i = 0; i < sizeof(tokens) / sizeof(char*); i++)
 	{
 		
-		printf(tokens[i]);
+		printf(tokens);
 		printf("^");
-		
+		tokens = tokens + sizeof(char*);
 	}
 
 	exit(0); 
