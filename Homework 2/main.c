@@ -37,7 +37,7 @@ int main(void)
 	char *input;
 
 	input = read_line(buffer, BUFFER_SIZE,  stdin);
-	printf(input);
+	printf(input + '\n');
 
 	exit(0);
 }
