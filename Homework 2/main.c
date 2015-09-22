@@ -41,8 +41,8 @@ char** parseArguments(char* input)
 
 	arguments[count] = NULL;
 
-	for (i = 0; i <= count; i++)
-		printf("ARG %d: %s\n", i, arguments[i]);
+	//for (i = 0; i <= count; i++)
+		//printf("ARG %d: %s\n", i, arguments[i]);
 	return arguments;
 }
 
@@ -103,7 +103,7 @@ int main(void)
 	{
 
 		char **args;
-		char location[512];
+		//char location[512];
 		int return_value;
 		int pid;
 		int child_status;
@@ -111,12 +111,12 @@ int main(void)
 		line = read_line(input_buffer, buffer_size, stdin);
 		args = parseArguments(line);
 
-		if (strcmp(args[0], quit) == 0)
-			exit(0);
+		//if (strcmp(args[0], quit) == 0)
+		//	exit(0);
 		
-		strcpy(location, "/bin/");
-		strcat(location, args[0]);
-		printf("location: %s\n", location);
+		//strcpy(location, "/bin/");
+		//strcat(location, args[0]);
+		//printf("location: %s\n", location);
 
 		if ((pid = fork()) == 0) //Child process
 		{
@@ -148,7 +148,7 @@ int main(void)
 				else if (WIFEXITED(child_status) != 0)
 				{
 					
-					printf("Done.\n");
+					//Done.
 				}
 				else
 					error();
