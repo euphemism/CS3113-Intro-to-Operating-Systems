@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 
 #define buffer_size 1024
 #define READ 0
@@ -12,7 +13,7 @@
 int file_descriptor[2];
 char buffer[buffer_size];
 
-char quit[] = "quit"; //Quit command string.
+char quit[] = "q"; //Quit command string.
 char input_buffer[buffer_size]; //Buffer for input.
 char *line;
 
@@ -79,61 +80,6 @@ void error(void)
 	exit(1);
 }
 
-void server(void)
-{
-
-	int client_message;
-	int process_id;
-	
-	printf("server function.\n");	
-	close(file_descriptor[1]);
-
-	char **args;
-	char location[512];
-	int return_value;
-	int pid;
-
-	while(1)
-	{
-
-		client_message = read(file_descriptor[0], &buffer, buffer_size);
-
-		printf("read: %s\n", buffer);
-		switch (buffer[0])
-		{
-	
-			case 'q': case 'Q':
-				if (strcmp(buffer, quit) == 0)
-					exit(0);
-
-			default:
-		
-				if ((pid = fork()) == 0)
-				{
-			
-					args = parseArguments(buffer);
-			
-					strcpy(location, "/bin/");
-					strcat(location, args[0]);
-					printf("location: %s\n", location);
-	
-					return_value = execvp(location, args);
-	
-					printf("not supposed to happen: %d\n", return_value);
-				}
-				else if (pid < 0)
-					error();
-
-				free(line);
-				server();
-		}
-
-		sleep(1);
-	}
-
-	exit(0);
-}
-
 void client(void)
 {
 
@@ -152,16 +98,9 @@ void client(void)
 int main(void)
 {
 
-	int pipe_success;
-	int process_id;
-
-	printf("The server can perform the following services:\n");
-	printf("(1) print time and date (using date)\n");
-	printf("(2) print calendar for any month, with Sunday or Monday as ");
-	printf("the first day of the week (using cal)\n");
-	printf("(3) list the contents of the working or any other directory (using ls)\n");
-	printf("(4) quit (using command '%s')\n", quit);
-
+//	int pipe_success;
+	char* line;
+/*
 	pipe_success = pipe(file_descriptor);
 
 	if (pipe_success == 0)
@@ -172,13 +111,45 @@ int main(void)
 		printf("error creating pipe.");
 		error();
 	}
-
+*/
 	fflush(stdout);
 
-	if ((process_id = fork()) == 0)
-		server();
-	else if (process_id < 0)
-		error();
-	else
-		client();
+	while (1)
+	{
+
+		char **args;
+		char location[512];
+		int return_value;
+		int pid;
+		int child_status;
+		
+		line = read_line(input_buffer, buffer_size, stdin);
+		args = parseArguments(line);
+
+		if (strcmp(args[0], quit) == 0)
+			exit(0);
+		
+		strcpy(location, "/bin/");
+		strcat(location, args[0]);
+		printf("location: %s\n", location);
+
+		wait()
+		if ((process_id = fork()) == 0) //Child process
+		{
+
+			return_value = execvp(location, args);
+			//We shouldn't be here.
+			error();
+		}
+		else if (process_id < 0) //Error
+		{
+			error();
+		}
+		else //Parent process
+		{
+
+			waitpid(pid, NULL, 0);
+			printf("Done.\n");
+		}
+	}
 }
