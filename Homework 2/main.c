@@ -68,23 +68,31 @@ char* read_line(char* buffer, size_t length, FILE* f)
 	 return array;
  }
  
+ char** collect_tokens(char* str)
+ {
+
+	char** result = (char**) malloc(sizeof(char*));
+	int token_count = 1;
+	result[token_count - 1] = strtok(str, " ");
+	
+	while (token != NULL)
+	{
+		
+		token_count++;
+		result = (char**) realloc(result, token_count * sizeof(char*));
+		result[token_count - 1] = strtok(str, " ");
+	}
+	
+	return result;
+ }
+ 
 int main(void)
 {
 
 	char buffer[BUFFER_SIZE];
 	char *input;
-
 	input = read_line(buffer, BUFFER_SIZE,  stdin);
-	printf("Here.");
-	char** tokens = explode(input, ' ');
-	printf(input);
-	
-	for (int i = 0; i < sizeof(tokens) / sizeof(char*); i++)
-	{
-		
-		printf(&tokens[i][0]);
-		printf("^");
-	}
+	printf(&collect_tokens(input));
 
 	exit(0); 
 }
