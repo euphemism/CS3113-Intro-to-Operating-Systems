@@ -73,14 +73,17 @@ char* read_line(char* buffer, size_t length, FILE* f)
 
 	char** result = (char**) malloc(sizeof(char*));
 	int token_count = 1;
-	result[token_count - 1] = strtok(str, " ");
+	char* token;
+	token = strtok(str, " ");
+	result[token_count - 1] = token;
 	
 	while (token != NULL)
 	{
 		
 		token_count++;
+		token = strtok(str, " ");
 		result = (char**) realloc(result, token_count * sizeof(char*));
-		result[token_count - 1] = strtok(str, " ");
+		result[token_count - 1] = token;
 	}
 	
 	return result;
