@@ -121,7 +121,8 @@ int main(void)
 		if ((pid = fork()) == 0) //Child process
 		{
 
-			return_value = execvp(location, args);
+			//return_value = execvp(location, args);
+			return_value = execlp(args);
 			//We shouldn't be here.
 			error();
 		}
