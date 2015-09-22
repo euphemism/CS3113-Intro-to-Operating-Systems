@@ -118,7 +118,6 @@ int main(void)
 		strcat(location, args[0]);
 		printf("location: %s\n", location);
 
-		wait()
 		if ((pid = fork()) == 0) //Child process
 		{
 
