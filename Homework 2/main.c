@@ -95,7 +95,7 @@ int main(void)
 	char buffer[BUFFER_SIZE];
 	char *input;
 	input = read_line(buffer, BUFFER_SIZE,  stdin);
-	printf(&collect_tokens(input));
+	printf(collect_tokens(input));
 
 	exit(0); 
 }
