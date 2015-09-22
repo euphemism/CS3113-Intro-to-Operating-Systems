@@ -80,21 +80,6 @@ void error(void)
 	exit(1);
 }
 
-void client(void)
-{
-
-	int client_message;
-
-	close(file_descriptor[0]);
-
-	while(1)
-	{
-
-		line = read_line(input_buffer, buffer_size, stdin);
-		client_message = write(file_descriptor[1], line, buffer_size);	
-	}	
-}
-
 int main(void)
 {
 
@@ -134,22 +119,43 @@ int main(void)
 		printf("location: %s\n", location);
 
 		wait()
-		if ((process_id = fork()) == 0) //Child process
+		if ((pid = fork()) == 0) //Child process
 		{
 
 			return_value = execvp(location, args);
 			//We shouldn't be here.
 			error();
 		}
-		else if (process_id < 0) //Error
+		else if (pid < 0) //Error
 		{
 			error();
 		}
 		else //Parent process
 		{
 
-			waitpid(pid, NULL, 0);
-			printf("Done.\n");
+			if ((pid = wait(&child_status)) == -1)
+			{
+				
+				error();
+			}
+			else
+			{
+				
+				if (WIFSIGNALED(child_status) != 0)
+				{
+					
+				}
+				else if (WIFEXITED(child_status) != 0)
+				{
+					
+					printf("Done.\n");
+				}
+				else
+					error();
+			}
 		}
+		
+		free(args);
+		free(location);
 	}
 }
