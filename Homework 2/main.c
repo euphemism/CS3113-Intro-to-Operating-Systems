@@ -7,11 +7,6 @@
 #include <sys/wait.h>
 
 #define buffer_size 1024
-#define READ 0
-#define WRITE 1
-
-int file_descriptor[2];
-char buffer[buffer_size];
 
 char quit[] = "q"; //Quit command string.
 char input_buffer[buffer_size]; //Buffer for input.
@@ -33,16 +28,13 @@ char** parseArguments(char* input)
 	}
 
 	char **arguments = malloc((count + 1) * sizeof(char*));
-
 	arguments[0] = strtok(input, " ");
 
 	for (i = 1; i < count; i++)
 		arguments[i] = strtok(NULL, " ");
-
 	arguments[count] = NULL;
 
-	//for (i = 0; i <= count; i++)
-		//printf("ARG %d: %s\n", i, arguments[i]);
+
 	return arguments;
 }
 
@@ -83,27 +75,14 @@ void error(void)
 int main(void)
 {
 
-//	int pipe_success;
 	char* line;
-/*
-	pipe_success = pipe(file_descriptor);
 
-	if (pipe_success == 0)
-		printf("pipe successfully created.");
-	else
-	{
-
-		printf("error creating pipe.");
-		error();
-	}
-*/
 	fflush(stdout);
 
 	while (1)
 	{
 
 		char **args;
-		//char location[512];
 		int return_value;
 		int pid;
 		int child_status;
@@ -111,17 +90,12 @@ int main(void)
 		line = read_line(input_buffer, buffer_size, stdin);
 		args = parseArguments(line);
 
-		//if (strcmp(args[0], quit) == 0)
-		//	exit(0);
-		
-		//strcpy(location, "/bin/");
-		//strcat(location, args[0]);
-		//printf("location: %s\n", location);
+		if (strcmp(args[0], quit) == 0)
+			exit(0);
 
 		if ((pid = fork()) == 0) //Child process
 		{
 
-			//return_value = execvp(location, args);
 			return_value = execvp(args[0], args);
 			//We shouldn't be here.
 			error();
