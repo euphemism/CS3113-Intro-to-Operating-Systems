@@ -122,7 +122,7 @@ int main(void)
 		{
 
 			//return_value = execvp(location, args);
-			return_value = execlp(args[0], args);
+			return_value = execvp(args[0], args);
 			//We shouldn't be here.
 			error();
 		}
