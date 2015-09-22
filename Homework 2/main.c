@@ -153,8 +153,5 @@ int main(void)
 					error();
 			}
 		}
-		
-		free(args);
-		free(location);
 	}
 }
